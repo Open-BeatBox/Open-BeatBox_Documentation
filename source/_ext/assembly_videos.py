@@ -54,7 +54,7 @@ GALLERIES = {
         ("/images/BB_water-holder.jpg", "Completed Open-BEATBox water bottle holder", "Completed water bottle mount"),
     ],
     "build/assembly-tutorials/modules/mod-fdr-aseembly": [
-        ("/videos/buidling_gifs/BB_Feeder_material.tiny.gif", "Feeder parts laid out before assembly", "Prepare the feeder parts"),
+        ("/videos/building_gifs/BB_Feeder_material.tiny.mp4", "Feeder parts laid out before assembly", "Prepare the feeder parts"),
         ("/images/Feeder/BB_Feeder-1.jpg", "First stage of the feeder housing assembly", "Prepare the housing — 1"),
         ("/images/Feeder/BB_Feeder-2.jpg", "Second stage of the feeder housing assembly", "Prepare the housing — 2"),
         ("/images/Feeder/BB_Feeder_IR-1.jpg", "First stage of feeder IR board installation", "Install the IR board — 1"),
@@ -63,9 +63,9 @@ GALLERIES = {
         ("/images/Feeder/BB_Feeder_IR-4.jpg", "Fourth stage of feeder IR board installation", "Install the IR board — 4"),
         ("/images/Feeder/BB_Feeder_IR-5.jpg", "Fifth stage of feeder IR board installation", "Install the IR board — 5"),
         ("/images/Feeder/BB_Feeder_cable.jpg", "Feeder cable routed through the housing", "Route the IR cable"),
-        ("/videos/buidling_gifs/BB_Feeder-motor.tiny.gif", "Feeder stepper motor installation", "Install the stepper motor"),
+        ("/videos/building_gifs/BB_Feeder-motor.tiny.mp4", "Feeder stepper motor installation", "Install the stepper motor"),
         ("/images/Feeder/BB_Feeder_PCB_color-code.jpg", "Feeder PCB terminal wire color reference", "Connect the motor wires"),
-        ("/videos/buidling_gifs/BB_Feeder-Assembly-motor-cables-to-PCB.tiny.gif", "Connecting the feeder motor cables to the PCB", "Wire the motor to the PCB"),
+        ("/videos/building_gifs/BB_Feeder-Assembly-motor-cables-to-PCB.tiny.mp4", "Connecting the feeder motor cables to the PCB", "Wire the motor to the PCB"),
         ("/images/Feeder.jpg", "Completed Open-BEATBox feeder viewed from the front", "Completed feeder — front"),
         ("/images/Feeder_side.jpg", "Completed Open-BEATBox feeder viewed from the side", "Completed feeder — side"),
     ],
@@ -161,10 +161,22 @@ def _append_gallery(app: Sphinx, doctree: nodes.document, docname: str) -> None:
     figures = []
     for image_url, alt_text, caption in gallery:
         escaped_url = escape(image_url, quote=True)
+        escaped_alt = escape(alt_text, quote=True)
+        if image_url.lower().endswith((".mp4", ".webm", ".mov")):
+            # Assembly clips are MP4 rather than animated GIF; autoplay them
+            # muted and looping so they read the same way on the page.
+            poster = escape(image_url.rsplit(".", 1)[0] + ".jpg", quote=True)
+            media = (
+                f'<video src="{escaped_url}" poster="{poster}" '
+                'autoplay loop muted playsinline preload="metadata" '
+                f'aria-label="{escaped_alt}"></video>'
+            )
+        else:
+            media = f'<img src="{escaped_url}" alt="{escaped_alt}" loading="lazy">'
         figures.append(
             '<figure class="assembly-gallery-item">'
             f'<a href="{escaped_url}" target="_blank" rel="noopener noreferrer">'
-            f'<img src="{escaped_url}" alt="{escape(alt_text, quote=True)}" loading="lazy">'
+            f"{media}"
             "</a>"
             f"<figcaption>{escape(caption)}</figcaption>"
             "</figure>"

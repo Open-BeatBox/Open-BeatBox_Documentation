@@ -47,9 +47,9 @@ html_theme_options = {
         "color-brand-primary": "#67e8f9",
         "color-brand-content": "#67e8f9",
     },
-    "source_repository": "https://github.com/Open-BeatBox/Open-BeatBox.github.io/",
+    "source_repository": "https://github.com/Open-BeatBox/Open-BeatBox_Documentation/",
     "source_branch": "main",
-    "source_directory": "docs/source/",
+    "source_directory": "source/",
 }
 
 myst_enable_extensions = [
@@ -67,9 +67,9 @@ nitpicky = False
 html_context = {
     "display_github": True,
     "github_user": "Open-BeatBox",
-    "github_repo": "Open-BeatBox.github.io",
+    "github_repo": "Open-BeatBox_Documentation",
     "github_version": "main",
-    "conf_py_path": "/docs/source/",
+    "conf_py_path": "/source/",
 }
 
 _static = Path(__file__).parent / "_static"
