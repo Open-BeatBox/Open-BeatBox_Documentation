@@ -1,0 +1,20 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Sphinx build output and doctrees.
+# Note: do not add a bare `build/` rule here — `source/build/` is manual content.
+_build/
+.doctrees/
+doctrees/
+
+# Editor and OS cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
