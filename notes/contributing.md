@@ -1,29 +1,12 @@
-# Contributing
+# Contributing to the documentation
 
-## Code of conduct
-Be respectful and constructive. Assume good intent, and surface concerns with empathy. Escalate harmful behavior to maintainers.
+The contribution guide for the whole project is part of the manual: `source/contributing.md` (published at <https://open-beatbox.github.io/docs/manual/contributing.html>). It explains which repository takes which contribution, how to build the manual locally, and the writing style.
 
-## Ways to contribute
-- File issues with clear steps, expected vs. actual behavior, and screenshots/logs when helpful.
-- Improve content structure and copy in `content/`.
-- Extend components or styling to support new section types.
-- Enhance documentation and runbooks in `docs/`.
-- Contribute hardware build notes (BOM, wiring diagrams) and link to firmware/runtime repositories.
+Quick checklist for a documentation pull request:
 
-## Pull request checklist
-- [ ] Branch created from `main`
-- [ ] `npm run lint`, `npm run type-check`, `npm run test`, and `npm run build` pass
-- [ ] For docs: `mkdocs build --strict` passes
-- [ ] Links and assets verified; navigation updated if needed
-- [ ] PR description explains what/why, testing performed, and screenshots for UI changes
-
-## Reviews and approvals
-- Seek at least one maintainer review for non-trivial changes.
-- Address feedback with follow-up commits (avoid force-push when possible to keep context).
-- Re-run validations after major updates.
-- For hardware/firmware docs, include pin maps, configuration files, and version/commit references.
-
-## Filing issues
-- Use a descriptive title.
-- Include environment info (OS, browser, Node.js version); for hardware issues, add device ID, firmware/runtime version, and wiring notes.
-- Provide reproduction steps or sample content snippets/logs that trigger the issue.
+- [ ] The manual builds with **no warnings**: `python -m sphinx -b html source _build/html`
+- [ ] New pages are in a `toctree`
+- [ ] New terms are in the glossary
+- [ ] Claims were checked against the code or design files; uncertain points are in `source/project/status.md`
+- [ ] Images are small and have alt text
+- [ ] The changelog (`notes/changelog.md`) has an entry

@@ -1,8 +1,15 @@
 # Build your own Open-BEATBox
 
-This is the starting point for building an Open-BEATBox. The guide brings the preparation notes, bill of materials, fabrication guidance, and step-by-step module tutorials into a single workflow.
+This is the starting point for building an Open-BEATBox. The guide brings the preparation notes, bill of materials, fabrication guidance, electronics, firmware flashing and step-by-step module tutorials into a single workflow, from the first order to the first test.
 
-Before you begin, read the safety notes and check that the bill of materials matches the hardware revision you intend to build. Prepare and inspect the fabricated parts before assembling the modules. Cards must be flashed **before they are installed in a module**; see {doc}`Flashing the cards <../hardware/flashing-cards>` for the current status of those instructions.
+```{admonition} What you need to know before starting
+:class: tip
+- **Skills:** basic hand tools, careful assembly, and **some soldering** (screens and infrared sensor boards). You do **not** need to program: flashing a board is drag-and-drop plus one command.
+- **Parts:** 3D-printed parts, laser-cut plexiglass, eight kinds of circuit boards (ordered from a PCB service, preferably assembled), plus motor, screens, connectors and cables. See the {doc}`Master BOM <bom>`.
+- **Order of work:** parts and boards → flash the boards → assemble each module → integrate → test. Boards must be flashed **before they are closed inside a module**.
+```
+
+Before you begin, read the safety notes and check that the bill of materials matches the hardware revision you intend to build (the manual targets **V3**). Prepare and inspect the fabricated parts before assembling the modules. Boards must be flashed **before they are installed in a module**; see {doc}`Flashing the module boards <../hardware/flashing-cards>`.
 
 ```{toctree}
 :maxdepth: 2
@@ -13,6 +20,7 @@ bom
 safety
 fabrication
 video-tutorials
+first-power-up
 ```
 
 ## Start the step-by-step guide
@@ -34,8 +42,9 @@ Complete every item in this preparation checklist before starting Step 1:
 
 - Read the {doc}`safety notes <safety>` before handling tools, inserts, soldering equipment, or plexiglass.
 - Download the Master BOM in {download}`XLSX <assembly-tutorials/BOM.xlsx>` or {download}`CSV <assembly-tutorials/BOM.csv>` format. Use the {doc}`BOM validation checklist <bom>` and {doc}`revision and identifier conventions <assembly-tutorials/conventions>` to resolve every incomplete field for the hardware revision being built.
-- Prepare the 3D-printed and laser-cut parts using the {doc}`fabrication guide <fabrication>` and the [Open-BEATBox CAD and hardware files](https://github.com/Open-BeatBox/Open-BeatBox_Hardware).
-- {doc}`Flash all required cards <../hardware/flashing-cards>` before installing them in their modules.
+- Prepare the 3D-printed and laser-cut parts using the {doc}`fabrication guide <fabrication>` and the [Open-BEATBox CAD and hardware files](https://github.com/Open-BeatBox/Open-BeatBox_Hardware) ({doc}`mechanical files explained <../hardware/mechanical>`).
+- Order the circuit boards using the manufacturing files in the Hardware repository ({doc}`how to order them <../hardware/ordering-pcbs>`, {doc}`what each board is <../hardware/pcbs>`).
+- {doc}`Flash all required boards <../hardware/flashing-cards>` before installing them in their modules.
 
 ### Step 1 — Build the frame and enclosure
 
@@ -63,7 +72,7 @@ Follow the [screen module tutorial](assembly-tutorials/modules/mod-scr-assembly.
 
 ### Step 7 — Integrate and validate the system
 
-Return to the <a href="assembly-tutorials/modules/mod-frm-assembly.html#install-the-additional-modules">final section of the enclosure tutorial</a> to install the completed modules, position the photobeam gate, and secure the top panel. Complete the {doc}`safety notes <safety>` and every module checkpoint before use. Record deviations using the {doc}`module and item identifier conventions <assembly-tutorials/conventions>`, then report corrections through the [assembly-tutorials issue tracker](https://github.com/Open-BeatBox/assembly-tutorials/issues).
+Return to the <a href="assembly-tutorials/modules/mod-frm-assembly.html#install-the-additional-modules">final section of the enclosure tutorial</a> to install the completed modules, position the photobeam gate, and secure the top panel. Then power up the system and run the checks in {doc}`first-power-up`. Complete the {doc}`safety notes <safety>` and every module checkpoint before use. Record deviations using the {doc}`module and item identifier conventions <assembly-tutorials/conventions>`, then report corrections through the [assembly-tutorials issue tracker](https://github.com/Open-BeatBox/assembly-tutorials/issues).
 
 ## Versioned sources
 
