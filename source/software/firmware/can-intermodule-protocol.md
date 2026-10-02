@@ -108,10 +108,13 @@ Status values:
 
 ### 4.1 Feeder (`MODULE=0x2`)
 
-| TYPE | CMD | Name             | Direction | Default PRIO | Payload |
-|------|-----|------------------|-----------|--------------|---------|
-| 10   | 01  | REQUEST_REWARD   | Request   | P1           | none |
-| 11   | 01  | REWARD_DELIVERED | Response  | P3           | `attempts:uint8` (`1..20`) |
+| TYPE | CMD | Name              | Direction | Default PRIO | Payload |
+|------|-----|-------------------|-----------|--------------|---------|
+| 10   | 00  | GET_REWARD_STATUS | Request   | P1           | none |
+| 10   | 01  | REQUEST_REWARD    | Request   | P1           | none |
+| 10   | 02  | REQUEST_ON        | Request   | P1           | none |
+| 10   | 03  | REQUEST_OFF       | Request   | P1           | none |
+| 11   | 00  | REWARD_STATUS     | Response  | P3           | `attempts:uint8` (`1..20`) |
 
 `REQUEST_REWARD` must be addressed to `MODULE=0x2`; the feeder ignores it on
 `BROADCAST`, so a reward is never delivered by accident.
@@ -129,12 +132,12 @@ visible on the bus.
 3. If no pellet is detected, it retries from step 2, up to 20 attempts total
    (one full revolution of the disc).
 4. On detection the motor stops immediately, the module returns to `IDLE` and
-   sends `REWARD_DELIVERED`. The payload reports how many attempts were needed:
+   sends `REWARD_STATUS`. The payload reports how many attempts were needed:
    `1` on first try, up to `20`.
 
 A reward therefore completes in about 500 ms in the nominal case, and can take
 up to ~10 s before being reported as failed. Main must not assume a fixed
-latency between `REQUEST_REWARD` and `REWARD_DELIVERED`.
+latency between `REQUEST_REWARD` and `REWARD_STATUS`.
 
 An `attempts` value consistently greater than `1` indicates a feeder running low
 or a disc starting to jam, and is worth logging as a health metric.
@@ -142,7 +145,7 @@ or a disc starting to jam, and is worth logging as a health metric.
 #### Delivery failure
 
 If the 20 attempts elapse without a pellet, the feeder sends the common `ERROR`
-response (`TYPE=01`, `CMD=10`, `P0`) instead of `REWARD_DELIVERED`, and stays in
+response (`TYPE=01`, `CMD=10`, `P0`) instead of `REWARD_STATUS`, and stays in
 `ERROR` status until the next successful reward.
 
 The error payload extends the generic `error_code:uint8` form with the command
@@ -153,7 +156,7 @@ that failed and the number of attempts made:
 | 0    | `error_code:uint8` = failing command, `0x01` for `REQUEST_REWARD` |
 | 1    | `attempts:uint8` = attempts made before giving up |
 
-No `REWARD_DELIVERED` is emitted in this case. A new `REQUEST_REWARD` is
+No successful `REWARD_STATUS` is emitted in this case. A new `REQUEST_REWARD` is
 accepted while the module is in `ERROR`, so main can retry after refilling.
 
 ### 4.2 Nosepoke (`MODULE=0x3`)
@@ -215,8 +218,8 @@ This avoids permanent dominance by low module IDs and matches the target policy:
 - Feeder reward request (`P1`, `FEEDER`, module request, `REQUEST_REWARD`):
   - bits: `001 0010 10 01`, ID `0x129`, no payload
 - Feeder reward delivered on the third attempt (`P3`, `FEEDER`, module response,
-  `REWARD_DELIVERED`):
-  - bits: `011 0010 11 01`, ID `0x32D`, payload `03`
+  `REWARD_STATUS`):
+  - bits: `011 0010 11 00`, ID `0x32C`, payload `03`
 - Feeder delivery failure after 20 attempts (`P0`, `FEEDER`, common response,
   `ERROR`):
   - bits: `000 0010 01 10`, ID `0x026`, payload `01 14`
@@ -231,12 +234,12 @@ If a module later needs more than 4 module-specific operations, use either:
 
 ## 8) Where the current code differs from this specification
 
-The following points were found by comparing this specification with the module programs in `micropython/modules/` and `micropython/libs/` of the Software repository (branch `main`). They are given so that integrators are not surprised; the maintainers should confirm which side is the intended behaviour.
+The following points were found by comparing this specification with the module programs in `micropython/modules/` and `micropython/libs/` of the Software repository (branch `main`, after the GitLab sync of 1 October 2026). They are given so that integrators are not surprised; the maintainers should confirm which side is the intended behaviour.
 
 | Area | Specification above | Current code |
 | --- | --- | --- |
-| **Feeder: pellet reporting** | `REWARD_DELIVERED` (`TYPE=11`, `CMD=01`) with payload `attempts` | A **`REWARD_STATUS`** response (`TYPE=11`, `CMD=00`) with payload `state:uint8` (`1` pellet present, `0` pellet taken) and `attempts:uint8`, sent at `P2` on **every change** of the pellet sensor, and at `P3` in reply to `GET_REWARD_STATUS` |
-| **Feeder: extra requests** | `REQUEST_REWARD` only | Also `GET_REWARD_STATUS` (`CMD=00`), **`REWARD_ON`** (`CMD=10`) and **`REWARD_OFF`** (`CMD=11`): direct motor control, as the V2 reward line did. The motor stops by itself 15 s after `REWARD_ON` |
+| **Feeder: `REWARD_STATUS` payload** | `attempts:uint8`, sent once at the end of a delivery | The payload is two bytes, `state:uint8` (`1` pellet present, `0` pellet taken) then `attempts:uint8`, sent at `P2` on **every change** of the pellet sensor, and at `P3` in reply to `GET_REWARD_STATUS` |
+| **Feeder: direct motor control** | `REQUEST_ON` / `REQUEST_OFF` (`CMD=02` / `03`) | Same codes, named `REWARD_ON` / `REWARD_OFF` in the code and the CLI. The motor stops by itself 15 s after `REWARD_ON` |
 | **Feeder: disc fraction per attempt** | One twentieth of a revolution | The constant in `feeder.py` is one **twenty-fifth** (`1/25`), with a comment saying one twentieth |
 | **IR barrier events** | `BARRIER_EVENT` payload `barrier:uint8` | Payload is two bytes: `[line_index, state]` (`state` `1` = beam broken, `0` = clear), one event per accepted edge, debounced at 10 ms |
 | **IR barrier status** | `BARRIER_STATUS` payload `barrier:uint8` | Payload is `[mask, last_triggered_line]`, with one bit per beam in `mask` (same `CMD=00` response) |

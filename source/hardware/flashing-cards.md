@@ -74,7 +74,7 @@ python deploy_module.py feeder --as-main --port auto
 :class: important
 **Screens — left or right.** The same program serves both screens, and each must announce a different address on the bus. The program ships set to the **right** screen. Before deploying to the **left** screen, open `micropython/modules/screenmodule.py`, and in the last lines change `ScreenModule(module_name="SCREEN_RIGHT")` to `ScreenModule(module_name="SCREEN_LEFT")`; change it back for the right one. Label the boards "L" and "R" right away. Two boards with the same address will confuse the system.
 
-**Main module — which mode?** Open `micropython/modules/main_module.py`. The line `CLI_MODE = False` (default) makes the board speak to the PC application. Set `CLI_MODE = True` while you **test** the box with the command-line tool ({doc}`../software/firmware/cli`), then set it back to `False` and deploy again before running experiments. See {doc}`../software/firmware/deploy`.
+**Main module — which mode?** Open `micropython/modules/main_module/main_module.py`. The line `CLI_MODE = False` (default) makes the board speak to the PC application. Set `CLI_MODE = True` while you **test** the box with the command-line tool ({doc}`../software/firmware/cli`), then set it back to `False` and deploy again before running experiments. See {doc}`../software/firmware/deploy`.
 ````
 
 If the script stops half-way, press the board's reset button (or unplug and replug it) and run the same command again.

@@ -31,7 +31,7 @@ python deploy_module.py <module> --as-main --port auto
 | `screenmodule` | Screen (left or right: see below) |
 | `lighting` | Lighting |
 | `ir_barrier` | Tunnel / photobeam gate |
-| `blinky`, `can_dummy_tx`, `can_dummy_rx`, `communicator` | Development and bring-up |
+| `blinky` | Development and bring-up |
 
 `--as-main` installs the module as `main.py`, which MicroPython runs automatically after `boot.py` ([boot sequence](https://docs.micropython.org/en/latest/reference/reset_boot.html#boot-sequence)). Use it for every module you intend to leave running.
 
@@ -39,7 +39,7 @@ The script copies, in order: the host-protocol package, the CAN driver (MCP2515)
 
 | Module | Extra files |
 | --- | --- |
-| `main_module` | `serial_manager`, `cli_protocol`, `bb_frontends`, `bb_events`, `bb_intents`, `bb_v2_map`, `bb_v2_comm`, `bb_v2_emulator` |
+| `main_module` | `serial_manager`, `cli_protocol` (from `libs/`), and `bb_frontends`, `bb_events`, `bb_intents`, `bb_v2_map`, `bb_v2_comm`, `bb_v2_emulator` (from `modules/main_module/`) |
 | `screenmodule` | ILI9341 parallel TFT driver (`ILI9341`, `ILI9341_char`, `ILI9341_touch`) |
 | `lighting` | PCA9955B LED driver package |
 
@@ -67,12 +67,12 @@ The deployment script copies files from these libraries, expected under `micropy
 
 ```{admonition} Current state of the repository
 :class: warning
-In the public Software repository these folders are **not populated**: the `beatbox-protocol` submodule points to a commit that no longer exists upstream, and the other three libraries are not included. A fresh clone therefore cannot run `deploy_module.py` successfully. The maintainers are working on vendoring the needed files (with their licences and provenance). Until then, populate `micropython/libs/` from a complete copy supplied by the team, or from the upstream projects (check their licences first). The host-protocol package is public at `gitlab.com/icm-institute/rnd-unit-public/rnd_unit_libs/beatbox-protocol`.
+In the public Software repository, `beatbox-protocol` and `ILI9341-parallel-TFT-driver-for-micropython` are Git submodules: clone with `git clone --recurse-submodules` (or run `git submodule update --init`) to fetch them. The other two libraries, `microPython_MCP2515` and `CircuitPython_PCA9955B`, are **not** declared as submodules yet (no source URL is recorded), so `deploy_module.py` still fails on a fresh clone for every module. Until the maintainers declare or vendor them, place both folders in `micropython/libs/` yourself from their upstream projects (check their licences first). The host-protocol package is public at `gitlab.com/icm-institute/rnd-unit-public/rnd_unit_libs/beatbox-protocol`.
 ```
 
 ## Operating modes of the main module
 
-`modules/main_module.py` has one deploy-time switch:
+`modules/main_module/main_module.py` has one deploy-time switch:
 
 ```python
 CLI_MODE = False   # default: legacy V2 emulation

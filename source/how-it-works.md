@@ -57,7 +57,7 @@ The previous generation of the box (**V2**) used an Arduino Mega as its main con
 | Question | Answer | Where it lives |
 | --- | --- | --- |
 | Which task is the mouse doing, and is it learning? | The **PC application** (training stage, success rate, stage change) | `pc_app/` in the Software repository ({doc}`project/repositories`) |
-| Which module receives that command, and in what format? | The **main module firmware** (translation to CAN) | `micropython/modules/main_module.py` |
+| Which module receives that command, and in what format? | The **main module firmware** (translation to CAN) | `micropython/modules/main_module/main_module.py` |
 | How is a pellet actually delivered, and what if it jams? | The **feeder firmware** drives the motor and reports the sensor; the **PC application** decides when to retry | `micropython/modules/feeder.py`, `pc_app/…/experiment_managers/` |
 | What does the screen draw, and when does it report a touch? | The **screen firmware** | `micropython/modules/screenmodule.py` |
 | What are the circuit boards, and how are they powered? | The **hardware repository** (KiCad files) | the Hardware repository ({doc}`project/repositories`) |

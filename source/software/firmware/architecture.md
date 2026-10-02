@@ -90,12 +90,12 @@ The pattern identifiers the application sends (a 4-bit code per screen, for exam
 Open-BeatBox_Software/
 ├── pc_app/                  host application (PC)
 ├── micropython/             module firmware
-│   ├── libs/                shared libraries and protocol layers
+│   ├── libs/                shared libraries (CAN, serial, CLI grammar, pin map)
 │   ├── modules/             one program per module role
+│   │   └── main_module/     the main module and its protocol layers (intents, events, V2)
 │   ├── tools/               bb_cli.py, the validation client
 │   ├── tests/               host-side tests (run on a PC)
 │   └── deploy_module.py     copies a module and its dependencies to a board
-├── circuitpython/           earlier firmware attempt, superseded
 ├── ARCHITECTURE.md
 └── README.md
 ```

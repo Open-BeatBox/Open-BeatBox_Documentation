@@ -18,7 +18,7 @@ The *CAN module ID* is the address the module answers to on the bus. It is the s
 | **CAN module ID** | `0x1` (`MAIN`) |
 | **What is on it** | RP2040 microcontroller, CAN controller, connection to the computer, distribution of **5 V and 12 V** to the other boards, **real-time clock** (RTC), **microSD** slot |
 | **Mechanical files** | `mechanical/V3/main/` (`RPI_shield_base_V3.STL`, `RPI_shield_top_V3.STL`) |
-| **Firmware** | `micropython/modules/main_module.py` |
+| **Firmware** | `micropython/modules/main_module/main_module.py` |
 | **Link to the PC** | UART0 (pins GP0 = TX, GP1 = RX) at **921600 baud**, typically through a USB-serial adapter |
 
 The board is designed as a shield (add-on board) for a single-board computer connector. In the current firmware, the main module is not a Raspberry Pi: it is an RP2040 board that forwards messages. See the open points in {doc}`../project/status`.

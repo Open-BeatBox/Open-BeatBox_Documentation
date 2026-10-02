@@ -30,12 +30,12 @@ Open-BEATBox is a working platform, but not every part is finished. This page is
 | # | Point | Effect on you |
 | --- | --- | --- |
 | F1 | The **Firmware repository** is a placeholder; the firmware is in the Software repository | See {doc}`../software/firmware/index` |
-| F2 | The **third-party libraries** and the protocol package are missing from `micropython/libs/` in the Software repository (the `beatbox-protocol` pin points to a commit that no longer exists; the CAN, LED and screen drivers are not included). A fresh clone cannot run `deploy_module.py` | Obtain a complete `libs/` from the team; see {doc}`../software/firmware/deploy` |
+| F2 | Two third-party libraries are still missing from `micropython/libs/` in the Software repository: `microPython_MCP2515` (CAN driver) and `CircuitPython_PCA9955B` (LED driver). `beatbox-protocol` and the ILI9341 screen driver are now Git submodules and are fetched with `--recurse-submodules`. Until the two missing ones are declared, `deploy_module.py` fails on a fresh clone | Add both folders to `micropython/libs/` from their upstream projects; see {doc}`../software/firmware/deploy` |
 | F3 | The **left/right screen identity** is a one-line edit in `screenmodule.py` (it ships as the right screen) | Follow {doc}`../hardware/flashing-cards` |
 | F4 | **Pattern numbering**: the pattern codes the application sends (4-bit V2 codes) and the numbers the screen program accepts (0–7) do not appear to be translated into each other | Verify each pattern on a real screen |
-| F5 | The **CAN specification differs from the code** in several places (feeder reporting, extra feeder commands, tunnel payloads, disc fraction 1/20 vs 1/25) | See section 8 of {doc}`../software/firmware/can-intermodule-protocol` |
+| F5 | The **CAN specification still differs from the code** in a few places (feeder status payload, tunnel payloads, disc fraction 1/20 vs 1/25). The feeder command codes now match | See section 8 of {doc}`../software/firmware/can-intermodule-protocol` |
 | F6 | Roadmap: the handshake sometimes fails, the main module can drop CAN messages under load, MicroPython can feel laggy with many events, no on-board log storage, repository structure and naming need cleaning | Restart and retry; keep event rates reasonable |
-| F7 | `micropython/README.md` describes some files under `modules/` that now live in `libs/`; the repository `ARCHITECTURE.md` still lists a `lib/` folder and `beatbox_protocol/` under `pc_app/` | Documentation of the code layout is slightly stale |
+| F7 | The repository `ARCHITECTURE.md` still lists a `lib/` folder and `beatbox_protocol/` under `pc_app/`; `micropython/deploy_module.py` and one test were fixed locally for the new `modules/main_module/` layout (see the Software repository history) but the older `test_bb_comm_protocol.py` and `test_serial_manager.py` do not run, and 8 feeder / IR-barrier host tests fail | Code-layout documentation is slightly stale; do not rely on the test suite as a gate yet |
 
 ### PC application
 

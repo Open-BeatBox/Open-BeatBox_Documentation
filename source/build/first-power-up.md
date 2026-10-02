@@ -72,7 +72,7 @@ Note in your lab book: the hardware revision (V3), the date, the software versio
 ## 7. Switch to experiment mode
 
 1. Close the CLI tool.
-2. Set `CLI_MODE = False` in `micropython/modules/main_module.py` and deploy the main module again ({doc}`../software/firmware/deploy`).
+2. Set `CLI_MODE = False` in `micropython/modules/main_module/main_module.py` and deploy the main module again ({doc}`../software/firmware/deploy`).
 3. Install the PC application ({doc}`../software/install`) and do a dry run of stage **S1** with no animal ({doc}`../software/pc-app`).
 
 ## Before an animal goes in
