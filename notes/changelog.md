@@ -9,6 +9,8 @@ Notable changes to the Open-BEATBox manual. Keep entries concise and link to pul
 - **Software:** installing and using the PC application, training stages S1–S4, configuration reference, data files.
 - **Firmware:** architecture, deployment, validation CLI; CAN protocol specification updated to the Software repository, with a list of differences from the code.
 - **Project:** repositories and licences, status and open points, contributing guide.
+- Recorded the developers' answers of 2 October 2026: firmware is the reference over the CAN spec, the two modified libraries will be flattened then forked, tests are being cleaned up.
+- Recorded that `CircuitPython_PCA9955B` is now included in the Software repository (MicroPython port, `dev_mpy` f73fbfe), so the lighting module deploys on a fresh clone.
 - Removed the outdated generic notes (they described a different, hypothetical system).
 
 ## Template

@@ -67,7 +67,7 @@ The deployment script copies files from these libraries, expected under `micropy
 
 ```{admonition} Current state of the repository
 :class: warning
-In the public Software repository, `beatbox-protocol` and `ILI9341-parallel-TFT-driver-for-micropython` are Git submodules: clone with `git clone --recurse-submodules` (or run `git submodule update --init`) to fetch them. The other two libraries, `microPython_MCP2515` and `CircuitPython_PCA9955B`, are **not** declared as submodules yet (no source URL is recorded), so `deploy_module.py` still fails on a fresh clone for every module. Until the maintainers declare or vendor them, place both folders in `micropython/libs/` yourself from their upstream projects (check their licences first). The host-protocol package is public at `gitlab.com/icm-institute/rnd-unit-public/rnd_unit_libs/beatbox-protocol`.
+In the public Software repository, `beatbox-protocol` and `ILI9341-parallel-TFT-driver-for-micropython` are Git submodules: clone with `git clone --recurse-submodules` (or run `git submodule update --init`) to fetch them. The project uses locally modified versions of the other two libraries, so their upstream projects alone are not enough. `microPython_MCP2515` is included as a plain folder (a copy of the upstream driver with the project's changes; MIT licence). `CircuitPython_PCA9955B` is included the same way (a copy of the MicroPython port of the upstream driver, MIT licence), so every module deploys on a fresh clone. The maintainers plan to publish forks of both libraries and turn them back into submodules. The host-protocol package is public at `gitlab.com/icm-institute/rnd-unit-public/rnd_unit_libs/beatbox-protocol`.
 ```
 
 ## Operating modes of the main module

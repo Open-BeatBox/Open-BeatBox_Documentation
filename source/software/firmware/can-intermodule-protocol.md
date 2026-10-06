@@ -234,7 +234,7 @@ If a module later needs more than 4 module-specific operations, use either:
 
 ## 8) Where the current code differs from this specification
 
-The following points were found by comparing this specification with the module programs in `micropython/modules/` and `micropython/libs/` of the Software repository (branch `main`, after the GitLab sync of 1 October 2026). They are given so that integrators are not surprised; the maintainers should confirm which side is the intended behaviour.
+The following points were found by comparing this specification with the module programs in `micropython/modules/` and `micropython/libs/` of the Software repository (branch `main`, after the GitLab sync of 1 October 2026). They are given so that integrators are not surprised. The developers confirmed on 2 October 2026 that **the firmware is the reference** (its values were tested and adjusted on hardware) and that the specification will be corrected to match it. Until that is done, trust the right-hand column.
 
 | Area | Specification above | Current code |
 | --- | --- | --- |
