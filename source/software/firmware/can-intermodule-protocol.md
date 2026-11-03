@@ -34,6 +34,8 @@ Payload is 0..8 bytes. RTR is not used.
 
 `CAN_ID = (PRIO << 8) | (MODULE << 4) | (TYPE << 2) | CMD`
 
+| PRIO | Class         | Typical usage |
+
 ## 2) Global dictionaries
 
 ### 2.1 Priority classes (`PRIO`)
@@ -108,45 +110,94 @@ Status values:
 
 ### 4.1 Feeder (`MODULE=0x2`)
 
-| TYPE | CMD | Name              | Direction | Default PRIO | Payload |
-|------|-----|-------------------|-----------|--------------|---------|
-| 10   | 00  | GET_REWARD_STATUS | Request   | P1           | none |
-| 10   | 01  | REQUEST_REWARD    | Request   | P1           | none |
-| 10   | 02  | REQUEST_ON        | Request   | P1           | none |
-| 10   | 03  | REQUEST_OFF       | Request   | P1           | none |
-| 11   | 00  | REWARD_STATUS     | Response  | P3           | `attempts:uint8` (`1..20`) |
+| TYPE | CMD | Name              | Direction | Default PRIO | Payload                                 |
+|------|-----|-------------------|-----------|--------------|-----------------------------------------|
+| 10   | 00  | GET_REWARD_STATUS | Request   | P3           | none                                    |
+| 10   | 01  | REQUEST_REWARD    | Request   | P1           | none                                    |
+| 10   | 10  | REWARD_ON         | Request   | P1           | none                                    |
+| 10   | 11  | REWARD_OFF        | Request   | P1           | none                                    |
+| 11   | 00  | REWARD_STATUS     | Response  | P3 / P2      | `state:uint8, attempts:uint8`           |
 
-`REQUEST_REWARD` must be addressed to `MODULE=0x2`; the feeder ignores it on
-`BROADCAST`, so a reward is never delivered by accident.
+`REWARD_STATUS` is the feeder's only module response. Its payload is two bytes:
 
-#### Delivery sequence
+| Byte | Meaning |
+|------|---------|
+| 0    | `state:uint8` = pellet presence, `1` pellet in the IR beam, `0` beam clear |
+| 1    | `attempts:uint8` = attempts made during the last autonomous delivery |
 
-One reward is a twentieth of a revolution of the feeder disc. Pellet arrival is
-detected by an IR barrier interrupt local to the feeder module, and is not
-visible on the bus.
+It is sent at `P3` when it answers a request (`GET_REWARD_STATUS`, or the end of
+a `REQUEST_REWARD` cycle), and at `P2` when it reports a spontaneous pellet
+presence change (see *Pellet presence reporting*).
+
+All feeder requests must be addressed to `MODULE=0x2`; the feeder ignores
+module requests received on `BROADCAST`, so a reward is never delivered by
+accident.
+
+`REQUEST_REWARD` and `REWARD_ON` are mutually exclusive: each is ignored while
+the other is active.
+
+#### Delivery sequence (`REQUEST_REWARD`, autonomous)
+
+One reward step is 1/25 of a revolution of the feeder disc. Pellet arrival is
+detected by an IR barrier interrupt local to the feeder module.
 
 1. Main sends `REQUEST_REWARD`. The feeder switches to `ACTIVE` and starts
    turning. A second `REQUEST_REWARD` received while a delivery is running is
    ignored; poll `GET_STATUS` to observe progress.
-2. The feeder turns 1/20 revolution, then waits up to 500 ms for the pellet.
+2. The feeder turns 1/25 revolution, then waits up to 500 ms for the pellet.
 3. If no pellet is detected, it retries from step 2, up to 20 attempts total
-   (one full revolution of the disc).
+   (about four fifths of a revolution of the disc).
 4. On detection the motor stops immediately, the module returns to `IDLE` and
-   sends `REWARD_STATUS`. The payload reports how many attempts were needed:
-   `1` on first try, up to `20`.
+   sends `REWARD_STATUS` at `P3`. The `attempts` byte reports how many attempts
+   were needed: `1` on first try, up to `20`.
+
+If a pellet is already in the beam when `REQUEST_REWARD` arrives, the disc does
+not turn: the feeder stays `IDLE` and answers `REWARD_STATUS` with `state=1` and
+`attempts=0`.
 
 A reward therefore completes in about 500 ms in the nominal case, and can take
 up to ~10 s before being reported as failed. Main must not assume a fixed
-latency between `REQUEST_REWARD` and `REWARD_STATUS`.
+latency between `REQUEST_REWARD` and its `REWARD_STATUS`.
 
 An `attempts` value consistently greater than `1` indicates a feeder running low
 or a disc starting to jam, and is worth logging as a health metric.
 
+#### Manual control (`REWARD_ON` / `REWARD_OFF`, V2-style)
+
+`REWARD_ON` turns the disc continuously until `REWARD_OFF`, mirroring the V2
+reward TTL line: main owns the timing and the retries. The module switches to
+`ACTIVE` and runs the motor at a fifth of the nominal step rate.
+
+- `REWARD_ON` is idempotent: a second one while the motor runs is a no-op.
+- `REWARD_ON` is ignored while an autonomous delivery is running.
+- The feeder stops by itself after 15 s without a `REWARD_OFF`, so a lost link
+  mid-delivery cannot spin the disc forever. Main's longest reward pulse must
+  stay below that.
+- `REWARD_OFF` also acts as an emergency stop: it aborts an autonomous
+  `REQUEST_REWARD` cycle in progress.
+
+Neither command answers with a `REWARD_STATUS` of its own; the pellet that comes
+out is reported by the presence events below.
+
+#### Pellet presence reporting
+
+The feeder publishes `REWARD_STATUS` at `P2` (event priority) on every pellet
+presence change, independently of what triggered it. Main sees both edges:
+
+- `state=1` is latched by the IR barrier interrupt and sent immediately, so a
+  pellet transiting faster than the 10 ms poll period is never missed.
+- `state=0` is sent once the beam has been continuously clear for 50 ms.
+
+This works whether the barrier watches the chute (transit: `1` then `0` shortly
+after) or the food well (presence: `0` only once the animal takes the pellet).
+The `attempts` byte carries the count from the last autonomous delivery and is
+unchanged by these events.
+
 #### Delivery failure
 
 If the 20 attempts elapse without a pellet, the feeder sends the common `ERROR`
-response (`TYPE=01`, `CMD=10`, `P0`) instead of `REWARD_STATUS`, and stays in
-`ERROR` status until the next successful reward.
+response (`TYPE=01`, `CMD=10`, `P0`) instead of a `P3` `REWARD_STATUS`, and stays
+in `ERROR` status until the next successful reward.
 
 The error payload extends the generic `error_code:uint8` form with the command
 that failed and the number of attempts made:
@@ -154,10 +205,13 @@ that failed and the number of attempts made:
 | Byte | Meaning |
 |------|---------|
 | 0    | `error_code:uint8` = failing command, `0x01` for `REQUEST_REWARD` |
-| 1    | `attempts:uint8` = attempts made before giving up |
+| 1    | `attempts:uint8` = attempts made before giving up (`20`) |
 
-No successful `REWARD_STATUS` is emitted in this case. A new `REQUEST_REWARD` is
+No `P3` `REWARD_STATUS` is emitted in this case. A new `REQUEST_REWARD` is
 accepted while the module is in `ERROR`, so main can retry after refilling.
+
+A cycle aborted by `REWARD_OFF` is silent: the module returns to `IDLE` without
+an `ERROR` and without a `REWARD_STATUS`.
 
 ### 4.2 Nosepoke (`MODULE=0x3`)
 
@@ -219,7 +273,10 @@ This avoids permanent dominance by low module IDs and matches the target policy:
   - bits: `001 0010 10 01`, ID `0x129`, no payload
 - Feeder reward delivered on the third attempt (`P3`, `FEEDER`, module response,
   `REWARD_STATUS`):
-  - bits: `011 0010 11 00`, ID `0x32C`, payload `03`
+  - bits: `011 0010 11 00`, ID `0x32C`, payload `01 03` (pellet present, 3 attempts)
+- Feeder pellet taken from the well (`P2`, `FEEDER`, module response,
+  `REWARD_STATUS`):
+  - bits: `010 0010 11 00`, ID `0x22C`, payload `00 03`
 - Feeder delivery failure after 20 attempts (`P0`, `FEEDER`, common response,
   `ERROR`):
   - bits: `000 0010 01 10`, ID `0x026`, payload `01 14`
@@ -234,18 +291,14 @@ If a module later needs more than 4 module-specific operations, use either:
 
 ## 8) Where the current code differs from this specification
 
-The following points were found by comparing this specification with the module programs in `micropython/modules/` and `micropython/libs/` of the Software repository (branch `main`, after the GitLab sync of 1 October 2026). They are given so that integrators are not surprised. The developers confirmed on 2 October 2026 that **the firmware is the reference** (its values were tested and adjusted on hardware) and that the specification will be corrected to match it. Until that is done, trust the right-hand column.
+The specification above is the version of 6 October 2026 (ICM GitLab commit `1fda77b`, in the Software repository since release `biorxiv-v1`), which brought the feeder section in line with the code: `REWARD_STATUS` payload, `REWARD_ON` / `REWARD_OFF`, pellet presence reporting and the 1/25 disc step. The developers confirmed that **the firmware is the reference** (its values were tested and adjusted on hardware). The points below still differ; trust the right-hand column.
 
 | Area | Specification above | Current code |
 | --- | --- | --- |
-| **Feeder: `REWARD_STATUS` payload** | `attempts:uint8`, sent once at the end of a delivery | The payload is two bytes, `state:uint8` (`1` pellet present, `0` pellet taken) then `attempts:uint8`, sent at `P2` on **every change** of the pellet sensor, and at `P3` in reply to `GET_REWARD_STATUS` |
-| **Feeder: direct motor control** | `REQUEST_ON` / `REQUEST_OFF` (`CMD=02` / `03`) | Same codes, named `REWARD_ON` / `REWARD_OFF` in the code and the CLI. The motor stops by itself 15 s after `REWARD_ON` |
-| **Feeder: disc fraction per attempt** | One twentieth of a revolution | The constant in `feeder.py` is one **twenty-fifth** (`1/25`), with a comment saying one twentieth |
 | **IR barrier events** | `BARRIER_EVENT` payload `barrier:uint8` | Payload is two bytes: `[line_index, state]` (`state` `1` = beam broken, `0` = clear), one event per accepted edge, debounced at 10 ms |
 | **IR barrier status** | `BARRIER_STATUS` payload `barrier:uint8` | Payload is `[mask, last_triggered_line]`, with one bit per beam in `mask` (same `CMD=00` response) |
 | **Lighting `TURN_OFF`** | Optional group; empty = all | As specified from the CLI. The V2 mapping always sends the group byte, because white and red are driven independently |
 | **Screen pattern numbers** | `pattern_id:uint8` (not enumerated) | The screen program accepts `0` black, `1` white, `2` blink, `3` vertical lines, `4` horizontal lines, `5` grid, `6` and `7` the two diagonals. The V2 mapping sends the application's 4-bit pattern code, which uses different numbers (see {doc}`architecture`) |
-| **Generic module** | `GENERIC` (`0x0`) commands | Matches: `TOGGLE_CAN_LED`, `USER_BUTTON_EVENT` |
 
 ## Related
 

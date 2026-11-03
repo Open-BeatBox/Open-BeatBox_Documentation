@@ -29,13 +29,13 @@ Open-BEATBox is a working platform, but not every part is finished. This page is
 
 | # | Point | Effect on you |
 | --- | --- | --- |
-| F1 | The **Firmware repository** is a placeholder; the firmware is in the Software repository | See {doc}`../software/firmware/index` |
+| F1 | The **Firmware repository** is a placeholder that points to the Software repository, where the firmware lives (`micropython/`); it has no release of its own | See {doc}`../software/firmware/index` |
 | F2 | The project carries **local modifications** to two third-party libraries, so they cannot simply point to their upstream projects. The plan agreed with the developers: copy them as plain folders ("flatten" them) into `micropython/libs/`, then publish them as forks and bring them back as Git submodules. `microPython_MCP2515` (CAN driver; upstream `capella-ben/microPython_MCP2515`, MIT licence, plus six project commits) is now copied this way. `CircuitPython_PCA9955B` (LED driver, used by the lighting module only; upstream `noelanderson/CircuitPython_PCA9955B`, MIT licence) is copied the same way, from the project's MicroPython port (branch `dev_mpy`, commit `f73fbfe`, July 2026), so `deploy_module.py lighting` works on a fresh clone. `beatbox-protocol` and the ILI9341 screen driver are Git submodules, fetched with `--recurse-submodules`. The fork URLs are still to be recorded | Nothing to do for now; see {doc}`../software/firmware/deploy` |
 | F3 | The **left/right screen identity** is a one-line edit in `screenmodule.py` (it ships as the right screen) | Follow {doc}`../hardware/flashing-cards` |
 | F4 | **Pattern numbering**: the pattern codes the application sends (4-bit V2 codes) and the numbers the screen program accepts (0–7) do not appear to be translated into each other | Verify each pattern on a real screen |
-| F5 | The **CAN specification still differs from the code** in a few places (feeder status payload, tunnel payloads, disc fraction 1/20 vs 1/25). The feeder command codes now match. The developers confirmed that **the firmware is the reference**, because its values were tested and tuned on real hardware; the specification document is to be corrected to match it | Follow the code, as listed in section 8 of {doc}`../software/firmware/can-intermodule-protocol` |
+| F5 | The **CAN specification still differs from the code** for the IR barrier payloads, and does not enumerate the lighting group byte or the screen pattern numbers. The feeder section was corrected on 6 October 2026 and now matches the code. The developers confirmed that **the firmware is the reference** | Follow the code, as listed in section 8 of {doc}`../software/firmware/can-intermodule-protocol` |
 | F6 | Roadmap: the handshake sometimes fails, the main module can drop CAN messages under load, MicroPython can feel laggy with many events, no on-board log storage, repository structure and naming need cleaning | Restart and retry; keep event rates reasonable |
-| F7 | The repository `ARCHITECTURE.md` still lists a `lib/` folder and `beatbox_protocol/` under `pc_app/`; `micropython/deploy_module.py` and one test were fixed locally for the new `modules/main_module/` layout (see the Software repository history) but the older `test_bb_comm_protocol.py` and `test_serial_manager.py` do not run, and 8 feeder / IR-barrier host tests fail. The developers confirm that some tests (mostly in `test_serial_manager.py`, which refers to a class that no longer exists) are to be deleted and others updated; a first pass was planned for 2 October 2026 | Code-layout documentation is slightly stale; do not rely on the test suite as a gate yet |
+| F7 | **Tests:** the firmware host tests (`micropython/tests/`) all pass since the developers' update of 6 October 2026 (`test_bb_comm_protocol.py` removed, feeder, IR-barrier and serial-manager tests rewritten). In `pc_app/tests/`, three files (`test_boot_fakes.py`, `test_serial_com.py`, `test_serial_com_threaded.py`) use a pseudo-terminal and run on Linux and macOS only | Run the tests on Linux or macOS for the full suite |
 | F8 | On the ICM GitLab, the `beatbox-protocol` submodule URL still uses `git://`, whereas the GitHub repository uses `https://`. That library is public, so `https://` works for everyone without an account or key; a request to change the GitLab URL has been sent | None on GitHub clones, which use `https://` |
 
 ### PC application
@@ -49,7 +49,7 @@ Open-BEATBox is a working platform, but not every part is finished. This page is
 | S5 | In *advanced* mode, no check ensures that one screen shows the correct pattern on each trial | Design sequences carefully |
 | S6 | Sensor and pin names (`nose_poke`, "V2") are inherited from the previous generation | Names will change |
 | S7 | Graph plotting is not implemented yet | Analyse the CSV files |
-| S8 | `pc_app/tests/mock_device.py` fails at import (`NameError: BBDeviceWidget`, an annotation evaluated before the class is imported), so the tests that use it cannot run as written | Contributors: fix before relying on the test suite |
+| S8 | A refactor of the PC application (hardware-neutral names, entry point `beatbox.gui.app`) is in progress on the ICM GitLab branch `pc_app-dev` and is not in this release | None; the commands in this manual match the release |
 
 ### Documentation
 
@@ -59,7 +59,7 @@ Open-BEATBox is a working platform, but not every part is finished. This page is
 | D2 | The interface screenshots in the manual were taken with a **simulated box**; screenshots from a real session would be better (the older images in the repository show the previous-generation software) |
 | D3 | Flashing and software walk-through videos are not yet available; captions or transcripts for the assembly videos are pending |
 | D4 | Protocol templates and validation datasets are not yet published ({doc}`../protocols/index`) |
-| D5 | The reference paper and DOI are pending; citation files will be updated when they exist |
+| D5 | The repositories are archived on Zenodo from release `biorxiv-v1`, which accompanies the bioRxiv preprint. The preprint and Zenodo DOIs will be added to the READMEs and citation files once they exist |
 
 ## How to help
 
