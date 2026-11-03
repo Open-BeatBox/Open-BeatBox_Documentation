@@ -58,7 +58,7 @@ Open-BEATBox is published as separate repositories, one per "layer", each under 
 | **Hardware** | CAD, enclosure, KiCad circuit boards, manufacturing files | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware) |
 | **Software** | PC control application, module firmware (MicroPython), validation command-line tool | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) |
 | **Firmware** | Reserved repository for stand-alone firmware releases (no source yet — see {doc}`software/firmware/index`) | [Open-BeatBox_Firmware](https://github.com/Open-BeatBox/Open-BeatBox_Firmware) |
-| **Build guides** | Per-module assembly tutorials and the Master bill of materials | [assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials) |
+| **Build guides** | Per-module assembly tutorials and the Master bill of materials | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/tree/main/source/build/assembly-tutorials) |
 | **Documentation** | This manual and its media | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation) |
 | **Website** | The public site and the build pipeline that publishes this manual | [Open-BeatBox.github.io](https://github.com/Open-BeatBox/Open-BeatBox.github.io) |
 
@@ -111,7 +111,7 @@ contributing
 ## Frequently used pages
 
 - {doc}`Modular assembly tutorials <build/assembly-tutorials/tutorials_index>`
-- [Master BOM (CSV and XLSX)](https://github.com/Open-BeatBox/assembly-tutorials#bill-of-materials)
+- {doc}`Master BOM (CSV and XLSX) <build/bom>`
 - {doc}`Flashing the module boards <hardware/flashing-cards>`
 - {doc}`First power-up and test <build/first-power-up>`
 - {doc}`Training stages S1–S4 <software/stages>`

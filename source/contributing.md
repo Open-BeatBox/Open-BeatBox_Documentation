@@ -18,7 +18,7 @@ Ideas and questions are welcome in [GitHub Discussions](https://github.com/Open-
 
 | Contribution about… | Repository |
 | --- | --- |
-| Assembly tutorials, the Master BOM | [assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials) |
+| Assembly tutorials, the Master BOM | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/tree/main/source/build/assembly-tutorials) |
 | CAD, enclosure, circuit boards | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware) |
 | PC application, module firmware, CLI | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) |
 | This manual and its media | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation) |
@@ -41,7 +41,7 @@ On any page of the published manual, use the *Edit this page* link (pencil icon)
 ### Build it on your computer
 
 ```bash
-git clone --recurse-submodules https://github.com/Open-BeatBox/Open-BeatBox_Documentation.git
+git clone https://github.com/Open-BeatBox/Open-BeatBox_Documentation.git
 cd Open-BeatBox_Documentation
 pip install -r requirements.txt
 python -m sphinx -b html source _build/html

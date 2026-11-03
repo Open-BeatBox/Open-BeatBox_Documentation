@@ -101,7 +101,7 @@ Open an issue in the repository that matches the problem and include:
 
 | Problem with… | Issue tracker |
 | --- | --- |
-| Assembly tutorials or BOM | [assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials/issues) |
+| Assembly tutorials or BOM | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/issues) |
 | CAD, PCB or mechanical files | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware/issues) |
 | PC application or module firmware | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software/issues) |
 | This manual or the website | [Open-BeatBox.github.io](https://github.com/Open-BeatBox/Open-BeatBox.github.io/issues) |
