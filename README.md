@@ -22,10 +22,9 @@ The manual is written for people who build and use the box, not only for program
 | Layer | Repository | Licence |
 | --- | --- | --- |
 | Hardware (CAD, circuit boards) | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware) | CERN-OHL-S-2.0 |
-| Software (PC application, module firmware, CLI) | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) | AGPL-3.0 |
-| Firmware (reserved for stand-alone releases) | [Open-BeatBox_Firmware](https://github.com/Open-BeatBox/Open-BeatBox_Firmware) | GPL-3.0 |
-| Assembly tutorials and Master BOM | [assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials) | see repository |
-| **Documentation (this repository)** | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation) | CC-BY-4.0 |
+| Software (PC application, module firmware, CLI) | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) | AGPL-3.0-or-later |
+| Firmware (placeholder; the firmware is in the Software repository) | [Open-BeatBox_Firmware](https://github.com/Open-BeatBox/Open-BeatBox_Firmware) | GPL-3.0 |
+| **Documentation (this repository)**, including the assembly tutorials and Master BOM | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation) | CC-BY-4.0 |
 | Website | [Open-BeatBox.github.io](https://github.com/Open-BeatBox/Open-BeatBox.github.io) | AGPL-3.0 |
 
 ## What is in this repository
@@ -36,7 +35,7 @@ Open-BeatBox_Documentation/
 │   ├── index.md        landing page and navigation
 │   ├── overview.md, how-it-works.md, getting-started.md, glossary.md, troubleshooting.md
 │   ├── build/          build guide: BOM, fabrication, safety, assembly, first power-up
-│   │   └── assembly-tutorials/   (Git submodule — see below)
+│   │   └── assembly-tutorials/   module assembly tutorials, conventions and the Master BOM
 │   ├── hardware/       modules, circuit boards, mechanical files, ordering, flashing
 │   ├── software/       PC application, stages, configuration, data, firmware, CAN protocol
 │   ├── protocols/      behavioural protocols
@@ -54,19 +53,9 @@ The Open-BEATBox website consumes this repository as a Git submodule mounted at 
 
 After a change is merged here, a maintainer updates the submodule pointer in the website repository so that the new version is published.
 
-### Nested submodule
+### Assembly tutorials
 
-`source/build/assembly-tutorials/` is itself a Git submodule, pointing at [Open-BeatBox/assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials). It supplies the per-module assembly tutorials, the conventions document and the Master BOM. **The manual will not build without it**, so clone with submodules:
-
-```bash
-git clone --recurse-submodules https://github.com/Open-BeatBox/Open-BeatBox_Documentation.git
-```
-
-If the repository is already cloned without them:
-
-```bash
-git submodule update --init --recursive
-```
+`source/build/assembly-tutorials/` holds the per-module assembly tutorials, the conventions document and the Master BOM. It used to be a separate repository ([Open-BeatBox/assembly-tutorials](https://github.com/Open-BeatBox/assembly-tutorials), now archived) included as a submodule; it was imported here with its history so that release archives are complete. Edit the tutorials and the BOM here.
 
 ## Building the manual on your computer
 
@@ -79,10 +68,14 @@ python -m sphinx -b html source _build/html
 
 Then open `_build/html/index.html` in a browser. Add `-d <doctrees>` to keep the Sphinx cache outside the output folder. The build should end with *build succeeded* and **no warnings**.
 
+## Citing
+
+If you use this documentation, please cite it with the metadata in [`CITATION.cff`](CITATION.cff) (GitHub's *Cite this repository* button). Each release is archived on Zenodo with its own DOI.
+
 ## Contributing
 
 Contributions are welcome — a typo fix, a screenshot, a correction after building your own box. See the [contributing guide](https://open-beatbox.github.io/docs/manual/contributing.html) in the manual, and the list of [open points](https://open-beatbox.github.io/docs/manual/project/status.html) where help is most useful.
 
 ## Licence
 
-The documentation, notes and media in this repository are licensed under the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) licence. The full text is in [`LICENSE`](LICENSE). Content pulled in through the `assembly-tutorials` submodule is covered by that repository's own licence.
+The documentation, notes and media in this repository are licensed under the [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/) licence. The full text is in [`LICENSE`](LICENSE).

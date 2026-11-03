@@ -35,7 +35,7 @@ The current module documents are marked `0.1-draft` and have not yet been assign
 
 ## Reporting corrections
 
-Report a tutorial or BOM discrepancy in the [assembly-tutorials issue tracker](https://github.com/Open-BeatBox/assembly-tutorials/issues). Include the item ID, module ID, hardware revision, tutorial section, and a photograph where useful.
+Report a tutorial or BOM discrepancy in the [Documentation issue tracker](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/issues). Include the item ID, module ID, hardware revision, tutorial section, and a photograph where useful.
 
 ```{toctree}
 :hidden:

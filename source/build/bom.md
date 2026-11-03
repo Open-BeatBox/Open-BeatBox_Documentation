@@ -6,8 +6,8 @@ The latest Master BOM is maintained alongside the modular assembly tutorials. It
 
 - {download}`BOM.xlsx — editable working file <assembly-tutorials/BOM.xlsx>`
 - {download}`BOM.csv — portable version <assembly-tutorials/BOM.csv>`
-- [Preview the CSV on GitHub](https://github.com/Open-BeatBox/assembly-tutorials/blob/main/BOM.csv)
-- [Identifier conventions](https://github.com/Open-BeatBox/assembly-tutorials/blob/main/conventions.md)
+- [Preview the CSV on GitHub](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/blob/main/source/build/assembly-tutorials/BOM.csv)
+- [Identifier conventions](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/blob/main/source/build/assembly-tutorials/conventions.md)
 
 The item IDs in the BOM, such as `PRT-FDR-001` and `PCB-SCR-002`, are the references used throughout the module tutorials. Proposed changes should preserve those IDs unless the physical item or compatibility contract changes.
 
@@ -25,4 +25,4 @@ The current BOM still contains fields marked with questions, placeholder paths o
 - Required and optional items are clearly separated.
 - The CSV and XLSX contain equivalent data.
 
-Corrections belong in the [assembly-tutorials repository](https://github.com/Open-BeatBox/assembly-tutorials). The manual displays the pinned submodule revision and therefore remains traceable to the exact tutorial and BOM source used for the build.
+Corrections belong in the [Documentation repository](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/tree/main/source/build/assembly-tutorials), where the BOM is kept next to the manual. Each manual release therefore matches the exact tutorial and BOM source it was built from.

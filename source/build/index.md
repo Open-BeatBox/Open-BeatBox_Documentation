@@ -72,7 +72,7 @@ Follow the [screen module tutorial](assembly-tutorials/modules/mod-scr-assembly.
 
 ### Step 7 — Integrate and validate the system
 
-Return to the <a href="assembly-tutorials/modules/mod-frm-assembly.html#install-the-additional-modules">final section of the enclosure tutorial</a> to install the completed modules, position the photobeam gate, and secure the top panel. Then power up the system and run the checks in {doc}`first-power-up`. Complete the {doc}`safety notes <safety>` and every module checkpoint before use. Record deviations using the {doc}`module and item identifier conventions <assembly-tutorials/conventions>`, then report corrections through the [assembly-tutorials issue tracker](https://github.com/Open-BeatBox/assembly-tutorials/issues).
+Return to the <a href="assembly-tutorials/modules/mod-frm-assembly.html#install-the-additional-modules">final section of the enclosure tutorial</a> to install the completed modules, position the photobeam gate, and secure the top panel. Then power up the system and run the checks in {doc}`first-power-up`. Complete the {doc}`safety notes <safety>` and every module checkpoint before use. Record deviations using the {doc}`module and item identifier conventions <assembly-tutorials/conventions>`, then report corrections through the [Documentation issue tracker](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/issues).
 
 ## Versioned sources
 
@@ -81,4 +81,4 @@ Return to the <a href="assembly-tutorials/modules/mod-frm-assembly.html#install-
 - {download}`Master BOM (CSV) <assembly-tutorials/BOM.csv>`
 - {doc}`Part-ID and media conventions <assembly-tutorials/conventions>`
 
-The `assembly-tutorials` repository owns the editable module guides and BOM. It is included here as a pinned Git submodule, so the manual renders the reviewed source revision directly instead of maintaining a second editable copy.
+The editable module guides and BOM live in the manual's sources, under `source/build/assembly-tutorials/` of the Documentation repository, so the manual renders them directly instead of maintaining a second copy.

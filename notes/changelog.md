@@ -2,7 +2,16 @@
 
 Notable changes to the Open-BEATBox manual. Keep entries concise and link to pull requests or issues when useful.
 
-## Unreleased
+## biorxiv-v1 — 3 November 2026
+
+- Release that accompanies the bioRxiv preprint; archived on Zenodo.
+- The assembly tutorials and the Master BOM are now part of this repository (`source/build/assembly-tutorials/`, imported with history from the archived `assembly-tutorials` repository), so release archives are complete.
+- CAN protocol page synced with the specification of 6 October 2026 (feeder section now matches the code); section 8 lists the remaining differences.
+- Status page: firmware tests pass, the Firmware repository is a pointer, the PC-application refactor is not in the release.
+- Flashing guide: archive downloads of the Software repository lack the two submodule libraries.
+- Citation metadata (`CITATION.cff`, `.zenodo.json`) with the preprint author list.
+
+## Earlier changes
 
 - Rewrote the manual around the real system (RP2040 modules, CAN bus, MicroPython firmware, PC application) and for non-programmers: new *How it works*, *Getting started*, *Glossary* and *Troubleshooting* pages.
 - **Hardware:** per-module descriptions, the eight circuit boards (with the mapping to the BOM), mechanical files (V2 and V3), how to order boards, flashing the module boards.

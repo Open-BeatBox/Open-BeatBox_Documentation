@@ -18,7 +18,7 @@ The deployment script copies several third-party libraries (CAN driver, screen d
 
 - A computer (Windows, macOS or Linux) with **Python 3.11 or newer** — installing it with [conda](https://docs.conda.io/) is the simplest way.
 - A **USB data cable** (not a charge-only cable) that fits your board.
-- The **Software repository** on your computer: [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) (`git clone --recurse-submodules …`, or *Code → Download ZIP*).
+- The **Software repository** on your computer: [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software) (`git clone --recurse-submodules …`). A *Download ZIP* or a release archive does not contain the two libraries kept as submodules (`beatbox-protocol` and the screen driver); the Software README lists how to fetch them.
 - The **MicroPython** file for the RP2040 boards, a `.uf2` file from [micropython.org/download](https://micropython.org/download/). The firmware was developed on the *Adafruit Feather RP2040* build (`ADAFRUIT_FEATHER_RP2040-20260406-v1.28.0.uf2` was the one in use), which is compatible with the custom boards.
 
 ## One-time setup on your computer

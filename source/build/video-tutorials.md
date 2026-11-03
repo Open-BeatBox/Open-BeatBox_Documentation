@@ -20,7 +20,7 @@ The project's YouTube channel is live at <https://www.youtube.com/@open-beatbox/
 ## Maintenance notes
 
 - Keep the 720p MP4 originals as archival assets outside the Git repository.
-- Use the naming convention in the [assembly documentation conventions](https://github.com/Open-BeatBox/assembly-tutorials/blob/main/conventions.md).
+- Use the naming convention in the [assembly documentation conventions](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/blob/main/source/build/assembly-tutorials/conventions.md).
 - Captions or a transcript are still to be added to each video; thumbnails and descriptions are in place.
 - The `embed_url` and `watch_url` values are held in `docs/source/_ext/assembly_videos.py`; update them there and in the table above if a video is ever re-uploaded.
 - Verify playback on desktop and mobile after any re-upload.
