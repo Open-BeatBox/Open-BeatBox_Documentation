@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+
+# Microsoft Office temporary files
+~$*.docx
+~$*.xlsx
+~$*.pptx
