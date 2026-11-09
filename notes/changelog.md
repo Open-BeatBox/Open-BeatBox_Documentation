@@ -2,6 +2,12 @@
 
 Notable changes to the Open-BEATBox manual. Keep entries concise and link to pull requests or issues when useful.
 
+## Unreleased
+
+- Repositories page: "Citing Open-BEATBox" section (preprint plus the Zenodo record of the release used; DOI placeholders until the `biorxiv-v1` drafts are published), version table aligned on release `biorxiv-v1`, note on the MATLAB/Arduino implementation and analysis code that are not yet public.
+- Status page: D5 reworded (releases are drafts), D6 added (analysis code and dataset to be published before preprint v2).
+- Protocols and video-tutorials pages: citation and Zenodo wording updated; landing page points to the citing section.
+
 ## biorxiv-v1 — 3 November 2026
 
 - Release that accompanies the bioRxiv preprint; archived on Zenodo.

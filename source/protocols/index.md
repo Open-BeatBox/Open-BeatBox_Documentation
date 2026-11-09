@@ -41,4 +41,4 @@ When you publish results obtained with Open-BEATBox, report: the **hardware revi
 
 ## Citing
 
-See the citation information in each repository (`CITATION.cff`) and on the [project website](https://open-beatbox.github.io/).
+Cite the reference preprint and the Zenodo record of the release you used; both are listed in {doc}`../project/repositories`. Each repository also carries a `CITATION.cff` file.

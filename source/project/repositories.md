@@ -35,12 +35,35 @@ This manual was last aligned with the following states of the repositories:
 
 | Repository | Reference | Date |
 | --- | --- | --- |
-| Open-BeatBox_Hardware | `main` at `ecc81cd` | 2026-09-29 |
-| Open-BeatBox_Software | `main` at `3877b26` | 2026-10-01 |
-| Open-BeatBox_Firmware | `main` at `a221246` (licence, README and citation file only) | 2026-09-18 |
-| assembly-tutorials | `03c4042` (documents marked `0.1-draft`) | 2026-09-15 |
+| Open-BeatBox_Hardware | release `biorxiv-v1` | 2026-11-03 |
+| Open-BeatBox_Software | release `biorxiv-v1` | 2026-11-03 |
+| Open-BeatBox_Documentation (this manual, assembly tutorials and Master BOM) | release `biorxiv-v1` | 2026-11-03 |
+| Open-BeatBox_Firmware | `main` (pointer to the Software repository; no code, no release) | 2026-11-03 |
 
 When you build a box, record the version of each repository you used. The software and CAN protocol are still evolving ({doc}`status`).
+
+## Citing Open-BEATBox
+
+If you use Open-BEATBox in published work, please cite **both** the reference preprint and the archived release of the layer you used.
+
+**The platform (preprint):**
+
+> Euvrard M, Benzina N, Domingues D, Mondragón-González SL, Huzard D, Penderia G, Travert-Jouanneau Y, Lavielle O, Lousada E, Schreiweis C, Lorenz A, Pavlov P, Ajili Z, Lebegue L, Tissier P, Burguière E. "Open-BEATBox: an open-source autonomous operant chamber for high-throughput data acquisition of complex behaviour." bioRxiv, 2026 (DOI to be added when the preprint is posted).
+
+**The release you used (Zenodo record):**
+
+| Layer | Repository | Release | Zenodo DOI |
+| --- | --- | --- | --- |
+| Hardware | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
+| Software (PC application and firmware) | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
+| Documentation (manual, tutorials, BOM) | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
+| Firmware | [Open-BeatBox_Firmware](https://github.com/Open-BeatBox/Open-BeatBox_Firmware) | — | No record of its own: the firmware is in the Software repository, cite that record |
+
+Each repository also has a `CITATION.cff` file, so GitHub's **Cite this repository** button gives you APA and BibTeX. Report the release tag (or commit) you built from, as asked in {doc}`../protocols/index`.
+
+## Related repositories not yet public
+
+The behavioural results in the preprint were obtained with the earlier MATLAB/Arduino implementation of the box, and analysed with MATLAB scripts. That implementation, the analysis code and the dataset are being prepared for publication (licence, authorship and a Zenodo DOI) and are not yet public; see {doc}`status` (D6).
 
 ## Where to report problems
 
