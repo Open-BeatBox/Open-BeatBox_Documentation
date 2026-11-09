@@ -54,9 +54,9 @@ If you use Open-BEATBox in published work, please cite **both** the reference pr
 
 | Layer | Repository | Release | Zenodo DOI |
 | --- | --- | --- | --- |
-| Hardware | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
-| Software (PC application and firmware) | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
-| Documentation (manual, tutorials, BOM) | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/releases) | `biorxiv-v1` | DOI: to be added once release `biorxiv-v1` is published on Zenodo |
+| Hardware | [Open-BeatBox_Hardware](https://github.com/Open-BeatBox/Open-BeatBox_Hardware/releases) | `biorxiv-v1` | [10.5281/zenodo.24080048](https://doi.org/10.5281/zenodo.24080048) (all versions: [10.5281/zenodo.24080047](https://doi.org/10.5281/zenodo.24080047)) |
+| Software (PC application and firmware) | [Open-BeatBox_Software](https://github.com/Open-BeatBox/Open-BeatBox_Software/releases) | `biorxiv-v1` | [10.5281/zenodo.24080479](https://doi.org/10.5281/zenodo.24080479) (all versions: [10.5281/zenodo.24080478](https://doi.org/10.5281/zenodo.24080478)) |
+| Documentation (manual, tutorials, BOM) | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation/releases) | `biorxiv-v1` | [10.5281/zenodo.24080481](https://doi.org/10.5281/zenodo.24080481) (all versions: [10.5281/zenodo.24080480](https://doi.org/10.5281/zenodo.24080480)) |
 | Firmware | [Open-BeatBox_Firmware](https://github.com/Open-BeatBox/Open-BeatBox_Firmware) | — | No record of its own: the firmware is in the Software repository, cite that record |
 
 Each repository also has a `CITATION.cff` file, so GitHub's **Cite this repository** button gives you APA and BibTeX. Report the release tag (or commit) you built from, as asked in {doc}`../protocols/index`.

@@ -4,6 +4,14 @@ title: "Open-BEATBox Documentation: technical manual and assembly tutorials"
 type: dataset
 version: "biorxiv-v1"
 date-released: "2026-11-03"
+doi: "10.5281/zenodo.24080481"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24080481"
+    description: "Zenodo record of release biorxiv-v1"
+  - type: doi
+    value: "10.5281/zenodo.24080480"
+    description: "Zenodo concept DOI (resolves to the latest release)"
 abstract: "Open-BEATBox (Open - BEhavioural and AuTonomous operant Box) is an open-source, modular, low-cost platform for autonomous home-cage operant conditioning and long-duration behavioural data acquisition in rodents. This repository holds the technical manual (Sphinx sources), the module assembly tutorials and the Master BOM."
 authors:
   - family-names: "Euvrard"
