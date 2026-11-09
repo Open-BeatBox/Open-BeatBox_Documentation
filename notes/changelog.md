@@ -4,6 +4,7 @@ Notable changes to the Open-BEATBox manual. Keep entries concise and link to pul
 
 ## Unreleased
 
+- Zenodo DOIs of release `biorxiv-v1` added to the repositories page, the status page (D5) and `CITATION.cff` (Hardware 10.5281/zenodo.24080048, Software 10.5281/zenodo.24080479, Documentation 10.5281/zenodo.24080481).
 - Repositories page: "Citing Open-BEATBox" section (preprint plus the Zenodo record of the release used; DOI placeholders until the `biorxiv-v1` drafts are published), version table aligned on release `biorxiv-v1`, note on the MATLAB/Arduino implementation and analysis code that are not yet public.
 - Status page: D5 reworded (releases are drafts), D6 added (analysis code and dataset to be published before preprint v2).
 - Protocols and video-tutorials pages: citation and Zenodo wording updated; landing page points to the citing section.
