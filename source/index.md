@@ -62,7 +62,7 @@ Open-BEATBox is published as separate repositories, one per "layer", each under 
 | **Documentation** | This manual and its media | [Open-BeatBox_Documentation](https://github.com/Open-BeatBox/Open-BeatBox_Documentation) |
 | **Website** | The public site and the build pipeline that publishes this manual | [Open-BeatBox.github.io](https://github.com/Open-BeatBox/Open-BeatBox.github.io) |
 
-See {doc}`project/repositories` for licences and how the pieces are versioned together.
+See {doc}`project/repositories` for licences and how the pieces are versioned together, and for **how to cite** Open-BEATBox (the preprint and the Zenodo record of the release you used).
 
 ```{admonition} Project status
 :class: note

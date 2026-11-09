@@ -59,7 +59,8 @@ Open-BEATBox is a working platform, but not every part is finished. This page is
 | D2 | The interface screenshots in the manual were taken with a **simulated box**; screenshots from a real session would be better (the older images in the repository show the previous-generation software) |
 | D3 | Flashing and software walk-through videos are not yet available; captions or transcripts for the assembly videos are pending |
 | D4 | Protocol templates and validation datasets are not yet published ({doc}`../protocols/index`) |
-| D5 | The repositories are archived on Zenodo from release `biorxiv-v1`, which accompanies the bioRxiv preprint. The preprint and Zenodo DOIs will be added to the READMEs and citation files once they exist |
+| D5 | The release `biorxiv-v1` (3 November 2026) exists as a **draft** on the Hardware, Software and Documentation repositories; it accompanies the bioRxiv preprint. Once the releases are published, Zenodo mints one DOI per repository, and those DOIs, together with the preprint DOI, must be added to the READMEs, the `CITATION.cff` files, this manual ({doc}`repositories`) and the paper |
+| D6 | The **MATLAB/Arduino implementation**, the **analysis code** and the **behavioural dataset** behind the preprint's results are not yet public. They are to be released with a licence and a Zenodo DOI before preprint v2 |
 
 ## How to help
 

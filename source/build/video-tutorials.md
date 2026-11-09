@@ -25,4 +25,4 @@ The project's YouTube channel is live at <https://www.youtube.com/@open-beatbox/
 - The `embed_url` and `watch_url` values are held in `docs/source/_ext/assembly_videos.py`; update them there and in the table above if a video is ever re-uploaded.
 - Verify playback on desktop and mobile after any re-upload.
 
-Large MP4 files should not be committed directly to the website repository; YouTube carries the website experience. A Zenodo deposit for the archival copies is planned but deferred: it waits on the outstanding hardware and software elements, and the DOI is currently targeted at the journal submission rather than the BioRxiv preprint.
+Large MP4 files should not be committed directly to the website repository; YouTube carries the website experience. Archival copies of the videos may be deposited on Zenodo in a later release.
